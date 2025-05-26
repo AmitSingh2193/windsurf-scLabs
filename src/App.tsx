@@ -1,14 +1,15 @@
-import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ReactGA from "react-ga4";
-import Dashboard from "./pages/dashboard";
+//import Dashboard from "./pages/dashboard";
 import Two from "./pages/two";
 import Three from "./pages/three";
 import Login from "./pages/login";
 import OrderTest from "./pages/order-test";
-import { Provider } from 'react-redux';
-import { store } from './state/store';
+import { Provider } from "react-redux";
+import { store } from "./state/store";
 import Home from "./pages/home";
 import OrderPage from "./pages/order-page";
+import { ThemeProvider } from "next-themes";
 
 const router = createBrowserRouter([
   {
@@ -17,12 +18,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <Home/>,
+    element: <Home />,
   },
-  {
-    path: "/dashboard",
-    element: <Dashboard />,
-  },
+  // {
+  //   path: "/dashboard",
+  //   element: <Dashboard />,
+  // },
   {
     path: "/two",
     element: <Two />,
@@ -46,9 +47,11 @@ ReactGA.initialize(GA_ID);
 
 function App() {
   return (
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </ThemeProvider>
   );
 }
 
