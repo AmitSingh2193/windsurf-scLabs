@@ -2,5 +2,7 @@
   "entryPoints": ["src"],
   "out": "docs",
   "exclude": ["node_modules"],
-  "tsconfig": "tsconfig.typedoc.json"
+  "tsconfig": "tsconfig.typedoc.json",
+  "excludeProtected": true,
+  "excludePrivate": true
 }

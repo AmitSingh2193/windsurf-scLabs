@@ -11,17 +11,20 @@ import {
   DialogTitle,
 } from "../components/ui/dialog";
 import { useState } from "react";
+import { useTheme } from "next-themes";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "../components/ui/accordion";
+import { Moon, Sun } from "lucide-react";
 
 const Home = () => {
   const navigate = useNavigate();
   const { user, credentials } = useAppSelector((state) => state.auth);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   if (!user || !credentials) {
     navigate("/");
@@ -29,14 +32,30 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen w-full bg-gray-100">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <h1 className="mb-8 text-3xl font-bold">Welcome, {user.name}!</h1>
+    <div className="min-h-screen w-full bg-gray-100 dark:bg-gray-900">
+      <div className="container mx-auto px-4 py-8 max-w-4xl dark:text-white">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold dark:text-white">
+            Welcome, {user.name}!
+          </h1>
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+          >
+            {theme === "dark" ? (
+              <Sun className="w-5 h-5" />
+            ) : (
+              <Moon className="w-5 h-5" />
+            )}
+          </button>
+        </div>
 
         {/* Dashboard Section */}
-        <div className="bg-white p-8 rounded-lg shadow-sm w-full max-w-4xl mb-8">
-          <h2 className="mb-6 text-2xl font-semibold">Dashboard</h2>
-          <p className="mb-6">
+        <div className="bg-white p-8 rounded-lg shadow-sm w-full max-w-4xl mb-8 dark:bg-gray-800 dark:shadow-gray-900">
+          <h2 className="mb-6 text-2xl font-semibold dark:text-white">
+            Dashboard
+          </h2>
+          <p className="mb-6 dark:text-gray-300">
             Welcome to your dashboard, {user.name}. Here are some quick actions:
           </p>
 
@@ -57,8 +76,8 @@ const Home = () => {
         </div>
 
         {/* FAQ Section */}
-        <div className="bg-white p-8 rounded-lg shadow-sm w-full max-w-4xl mb-8">
-          <h2 className="mb-6 text-2xl font-semibold">
+        <div className="bg-white p-8 rounded-lg shadow-sm w-full max-w-4xl mb-8 dark:bg-gray-800 dark:shadow-gray-900">
+          <h2 className="mb-6 text-2xl font-semibold dark:text-white">
             Frequently Asked Questions
           </h2>
 
@@ -91,11 +110,13 @@ const Home = () => {
             </AccordionItem>
           </Accordion>
 
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <h3 className="mb-4 text-lg font-medium">Your Account</h3>
-            <p>Email: {credentials.email}</p>
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <h3 className="mb-4 text-lg font-medium dark:text-white">
+              Your Account
+            </h3>
+            <p className="dark:text-gray-300">Email: {credentials.email}</p>
           </div>
-          <p>Password: {credentials.password}</p>
+          <p className="dark:text-gray-300">Password: {credentials.password}</p>
 
           <div className="flex gap-4 mt-4">
             <PrimaryButton
@@ -126,13 +147,13 @@ const Home = () => {
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
               <DialogTitle>Sample Dialog</DialogTitle>
-              <DialogDescription>
+              <DialogDescription className="dark:text-gray-300">
                 This is a reusable dialog component. You can put any content
                 here.
               </DialogDescription>
             </DialogHeader>
             <div className="py-4">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 This is the main content area of the dialog. You can add forms,
                 messages, or other UI components here.
               </p>
